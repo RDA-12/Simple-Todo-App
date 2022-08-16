@@ -14,20 +14,18 @@ void main() {
     usecase = CreateTodoUseCase(repo);
   });
 
-  Map<String, dynamic> tData = {
-    "title": "test",
-    "description": "test",
-    "time": "12:00",
-    "date": DateTime(2022),
-  };
-
-  final Todo tTodo = Todo("test", "test", "12:00", DateTime(2022));
+  final Todo tTodo = Todo(
+    title: "test",
+    description: "test",
+    time: "12:00",
+    date: DateTime(2022),
+  );
 
   test(
     'should return todo that newly created',
     () async {
       // arrange
-      when(repo.createTodo(tData)).thenAnswer((_) async => tTodo);
+      when(repo.createTodo(tTodo)).thenAnswer((_) async => tTodo);
 
       // act
       final result = await usecase(
@@ -36,7 +34,7 @@ void main() {
 
       // assert
       expect(result, tTodo);
-      verify(repo.createTodo(tData)).called(1);
+      verify(repo.createTodo(tTodo)).called(1);
       verifyNoMoreInteractions(repo);
     },
   );
@@ -46,10 +44,10 @@ void main() {
     () async {
       // act
       final params = Params("test", "test", "12:00", DateTime(2022));
-      final result = params.toMap();
+      final result = params.toTodo();
 
       // assert
-      expect(result, tData);
+      expect(result, tTodo);
     },
   );
 }

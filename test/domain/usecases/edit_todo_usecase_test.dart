@@ -14,9 +14,14 @@ void main() {
     usecase = EditTodoUseCase(repo);
   });
 
-  const String tKey = "test";
-  final Map<String, dynamic> tData = {"title": "test2"};
-  final Todo tNewTodo = Todo("test2", "test", "12:00", DateTime.now());
+  const int tKey = 1;
+  final Todo tData = Todo(title: "test", date: DateTime(2022));
+  final Todo tNewTodo = Todo(
+    title: "test2",
+    description: "test",
+    time: "12:00",
+    date: DateTime.now(),
+  );
 
   test(
     'should return newly edited todo from repo',

@@ -13,7 +13,7 @@ void main() {
     usecase = DeleteTodoUseCase(repo);
   });
 
-  const String tKey = "test";
+  const int tKey = 1;
 
   test(
     'should return nothing from todo',

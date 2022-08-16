@@ -14,7 +14,7 @@ class DeleteTodoUseCase implements UseCase<void, Params> {
 }
 
 class Params extends Equatable {
-  final String key;
+  final int key;
   const Params(this.key);
 
   @override

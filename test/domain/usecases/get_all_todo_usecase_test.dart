@@ -17,7 +17,12 @@ void main() {
     usecase = GetAllTodoUseCase(repo);
   });
 
-  Todo tTodo = Todo("title", "description", "12:00", DateTime.now());
+  Todo tTodo = Todo(
+    title: "title",
+    description: "description",
+    time: "12:00",
+    date: DateTime.now(),
+  );
   List<Todo> tTodos = [tTodo, tTodo];
 
   test(

@@ -10,7 +10,7 @@ class CreateTodoUseCase implements UseCase<Todo, Params> {
 
   @override
   Future<Todo> call(Params params) async {
-    return await repo.createTodo(params.toMap());
+    return await repo.createTodo(params.toTodo());
   }
 }
 
@@ -21,13 +21,13 @@ class Params extends Equatable {
 
   const Params(this.title, this.description, this.time, this.date);
 
-  Map<String, dynamic> toMap() {
-    return {
-      "title": title,
-      "description": description,
-      "time": time,
-      "date": date,
-    };
+  Todo toTodo() {
+    return Todo(
+      title: title,
+      description: description,
+      time: time,
+      date: date,
+    );
   }
 
   @override

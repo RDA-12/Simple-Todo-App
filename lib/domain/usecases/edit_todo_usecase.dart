@@ -15,8 +15,8 @@ class EditTodoUseCase implements UseCase<Todo, Params> {
 }
 
 class Params extends Equatable {
-  final String key;
-  final Map<String, dynamic> data;
+  final int key;
+  final Todo data;
   const Params(this.key, this.data);
 
   @override
