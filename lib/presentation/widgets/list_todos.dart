@@ -20,8 +20,7 @@ class ListTodos extends StatelessWidget {
             itemCount: todos.length,
             itemBuilder: (_, index) {
               return TodoCard(
-                title: todos[index].title,
-                date: todos[index].dueDate,
+                todo: todos[index],
                 onTap: () => onTap(todos[index]),
               );
             },

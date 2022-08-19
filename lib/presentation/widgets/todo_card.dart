@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../domain/entity/todo.dart';
+
 class TodoCard extends StatelessWidget {
   TodoCard({
     Key? key,
-    required this.title,
-    required this.date,
+    required this.todo,
     required this.onTap,
   }) : super(key: key);
 
-  final String title;
-  final DateTime date;
+  final Todo todo;
   final Function() onTap;
   final DateTime now = DateTime.now();
   final DateFormat dateFormatter = DateFormat("d MMM");
@@ -22,24 +22,39 @@ class TodoCard extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Card(
-          color: now.isAfter(date) ? Theme.of(context).colorScheme.error : null,
+          color: _getCardColor(context, todo),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 20),
             child: Row(
               children: [
                 Expanded(
                   child: Text(
-                    title,
+                    todo.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Text(dateFormatter.format(date)),
+                Text(dateFormatter.format(todo.dueDate)),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Color? _getCardColor(BuildContext context, Todo todo) {
+    final Color passDueColor = Theme.of(context).colorScheme.error;
+    if (todo.isFinished) {
+      if (todo.finishedDate!.isAfter(todo.dueDate)) {
+        return passDueColor;
+      }
+      return null;
+    } else {
+      if (now.isAfter(todo.dueDate)) {
+        return passDueColor;
+      }
+      return null;
+    }
   }
 }

@@ -18,5 +18,12 @@ class HistoryTodoBloc extends Bloc<HistoryTodoEvent, HistoryTodoState> {
           allTodos.where((todo) => todo.isFinished).toList();
       emit(HistoryTodoLoaded(completedTodos));
     });
+    on<FilterHistoryTodo>((event, emit) async {
+      emit(LoadingHistoryTodo());
+      final bool Function(Todo) filter = event.filter;
+      final List<Todo> allTodos = await getAllTodoUseCase(NoParams());
+      final List<Todo> filteredTodo = allTodos.where(filter).toList();
+      emit(HistoryTodoLoaded(filteredTodo));
+    });
   }
 }

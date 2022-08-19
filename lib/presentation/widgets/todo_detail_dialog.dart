@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:todo_app/presentation/widgets/horizontal_space.dart';
 
 import '../../domain/entity/todo.dart';
+import 'horizontal_space.dart';
 import 'vertical_space.dart';
 
 class TodoDetailDialog extends StatelessWidget {
@@ -38,14 +38,19 @@ class TodoDetailDialog extends StatelessWidget {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const VerticalSpace(height: 5),
-            Text(
-              dateFormatter.format(todo.dueDate),
-              style: Theme.of(context).textTheme.caption?.copyWith(
-                    color: DateTime.now().isAfter(todo.dueDate)
-                        ? Theme.of(context).colorScheme.error
-                        : null,
+            !todo.isFinished
+                ? Text(
+                    dateFormatter.format(todo.dueDate),
+                    style: Theme.of(context).textTheme.caption?.copyWith(
+                          color: _getDateColor(context, todo),
+                        ),
+                  )
+                : Text(
+                    "finished at ${dateFormatter.format(todo.finishedDate!)}",
+                    style: Theme.of(context).textTheme.caption?.copyWith(
+                          color: _getDateColor(context, todo),
+                        ),
                   ),
-            ),
             const VerticalSpace(height: 10),
             Text(
               todo.description,
@@ -73,5 +78,20 @@ class TodoDetailDialog extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color? _getDateColor(BuildContext context, Todo todo) {
+    final Color passDueColor = Theme.of(context).colorScheme.error;
+    if (todo.isFinished) {
+      if (todo.finishedDate!.isAfter(todo.dueDate)) {
+        return passDueColor;
+      }
+      return null;
+    } else {
+      if (DateTime.now().isAfter(todo.dueDate)) {
+        return passDueColor;
+      }
+      return null;
+    }
   }
 }

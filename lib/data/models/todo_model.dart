@@ -21,12 +21,16 @@ class TodoModel extends HiveObject {
   @HiveField(4)
   bool isFinished;
 
+  @HiveField(5)
+  DateTime? finishedDate;
+
   TodoModel({
     required this.title,
     required this.dueDate,
     required this.description,
     required this.time,
     required this.isFinished,
+    this.finishedDate,
   });
 
   factory TodoModel.fromEntity(Todo todo) {
@@ -36,6 +40,7 @@ class TodoModel extends HiveObject {
       description: todo.description,
       time: todo.time,
       isFinished: todo.isFinished,
+      finishedDate: todo.finishedDate,
     );
   }
 
@@ -47,6 +52,7 @@ class TodoModel extends HiveObject {
       description: description,
       time: time,
       isFinished: isFinished,
+      finishedDate: finishedDate,
     );
   }
 }

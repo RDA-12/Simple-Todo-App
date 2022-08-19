@@ -237,6 +237,7 @@ class _HomePageState extends State<HomePage> {
       description: todo.description,
       dueDate: todo.dueDate,
       isFinished: true,
+      finishedDate: DateTime.now(),
     );
     context.read<TodoBloc>().add(
           EditTodo(newTodo, todo.key!),

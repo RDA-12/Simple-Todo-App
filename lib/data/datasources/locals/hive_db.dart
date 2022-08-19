@@ -37,6 +37,7 @@ class HiveDataSource implements LocalDataSource {
     todo.description = updatedTodo.description;
     todo.time = updatedTodo.time;
     todo.isFinished = updatedTodo.isFinished;
+    todo.finishedDate = updatedTodo.finishedDate;
     await todo.save();
     return todo;
   }

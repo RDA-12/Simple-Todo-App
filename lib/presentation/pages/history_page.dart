@@ -32,6 +32,20 @@ class _HistoryPageState extends State<HistoryPage> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("History"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.filter_list),
+              onPressed: () async {
+                final bool Function(Todo)? filter = await _getFilter();
+                if (filter != null) {
+                  if (!mounted) return;
+                  context
+                      .read<HistoryTodoBloc>()
+                      .add(FilterHistoryTodo(filter));
+                }
+              },
+            ),
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(16),
@@ -41,14 +55,13 @@ class _HistoryPageState extends State<HistoryPage> {
                 final List<Todo> todos = state.todos;
                 return todos.isEmpty
                     ? const Center(
-                        child: Text("You never finished a todo"),
+                        child: Text("There is no todo here"),
                       )
                     : ListView.builder(
                         itemCount: todos.length,
                         itemBuilder: (_, index) {
                           return TodoCard(
-                            title: todos[index].title,
-                            date: todos[index].dueDate,
+                            todo: todos[index],
                             onTap: () => _openDetail(context, todos[index]),
                           );
                         },
@@ -92,6 +105,31 @@ class _HistoryPageState extends State<HistoryPage> {
           onPressedDelete: () => _deleteTodo(context, todo.key!),
         );
       },
+    );
+  }
+
+  Future<bool Function(Todo)?> _getFilter() async {
+    return await showMenu<bool Function(Todo)>(
+      context: context,
+      position: const RelativeRect.fromLTRB(double.infinity, 0, 0, 0),
+      items: [
+        PopupMenuItem(
+          value: (Todo todo) => true,
+          child: const Text("all"),
+        ),
+        PopupMenuItem(
+          value: (Todo todo) => todo.finishedDate!.isBefore(todo.dueDate),
+          child: const Text("on time"),
+        ),
+        PopupMenuItem(
+          value: (Todo todo) => todo.finishedDate!.isAfter(todo.dueDate),
+          child: const Text("over due"),
+        ),
+        PopupMenuItem(
+          value: (Todo todo) => todo.dueDate.month == DateTime.now().month,
+          child: const Text("this month"),
+        ),
+      ],
     );
   }
 }

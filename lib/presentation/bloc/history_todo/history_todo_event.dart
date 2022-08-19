@@ -8,3 +8,11 @@ abstract class HistoryTodoEvent extends Equatable {
 }
 
 class GetHistoryTodo extends HistoryTodoEvent {}
+
+class FilterHistoryTodo extends HistoryTodoEvent {
+  final bool Function(Todo) filter;
+  const FilterHistoryTodo(this.filter);
+
+  @override
+  List<Object> get props => [filter];
+}

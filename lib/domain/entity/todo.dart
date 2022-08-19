@@ -4,6 +4,7 @@ class Todo extends Equatable {
   final int? key;
   final String title, description, time;
   final DateTime dueDate;
+  final DateTime? finishedDate;
   final bool isFinished;
   const Todo({
     this.key,
@@ -11,6 +12,7 @@ class Todo extends Equatable {
     required this.dueDate,
     required this.description,
     required this.time,
+    this.finishedDate,
     this.isFinished = false,
   });
 
@@ -22,5 +24,6 @@ class Todo extends Equatable {
         dueDate,
         key,
         isFinished,
+        finishedDate,
       ];
 }
