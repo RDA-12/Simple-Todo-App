@@ -15,12 +15,17 @@ void main() {
   });
 
   const int tKey = 1;
-  final Todo tData = Todo(title: "test", date: DateTime(2022));
+  final Todo tData = Todo(
+    title: "test",
+    dueDate: DateTime(2022),
+    description: "test",
+    time: "12:00",
+  );
   final Todo tNewTodo = Todo(
     title: "test2",
     description: "test",
     time: "12:00",
-    date: DateTime.now(),
+    dueDate: DateTime.now(),
   );
 
   test(

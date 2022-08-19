@@ -10,36 +10,43 @@ class TodoModel extends HiveObject {
   String title;
 
   @HiveField(1)
-  String? description;
+  String description;
 
   @HiveField(2)
-  String? time;
+  String time;
 
   @HiveField(3)
-  DateTime date;
+  DateTime dueDate;
+
+  @HiveField(4)
+  bool isFinished;
 
   TodoModel({
     required this.title,
-    required this.date,
-    this.description,
-    this.time,
+    required this.dueDate,
+    required this.description,
+    required this.time,
+    required this.isFinished,
   });
 
   factory TodoModel.fromEntity(Todo todo) {
     return TodoModel(
       title: todo.title,
-      date: todo.date,
+      dueDate: todo.dueDate,
       description: todo.description,
       time: todo.time,
+      isFinished: todo.isFinished,
     );
   }
 
   Todo toEntity() {
     return Todo(
+      key: key,
       title: title,
-      date: date,
+      dueDate: dueDate,
       description: description,
       time: time,
+      isFinished: isFinished,
     );
   }
 }

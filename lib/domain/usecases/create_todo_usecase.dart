@@ -15,21 +15,25 @@ class CreateTodoUseCase implements UseCase<Todo, Params> {
 }
 
 class Params extends Equatable {
-  final String title;
-  final String? description, time;
-  final DateTime date;
+  final String title, description, time;
+  final DateTime dueDate;
 
-  const Params(this.title, this.description, this.time, this.date);
+  const Params({
+    required this.title,
+    required this.description,
+    required this.time,
+    required this.dueDate,
+  });
 
   Todo toTodo() {
     return Todo(
       title: title,
       description: description,
       time: time,
-      date: date,
+      dueDate: dueDate,
     );
   }
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [title, description, time, dueDate];
 }

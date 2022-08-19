@@ -22,7 +22,8 @@ class HiveDataSource implements LocalDataSource {
 
   @override
   Future<void> deleteTodo(int key) async {
-    await todoBox.delete(key);
+    TodoModel todo = todoBox.get(key);
+    await todo.delete();
   }
 
   @override
@@ -30,11 +31,12 @@ class HiveDataSource implements LocalDataSource {
     int key,
     TodoModel updatedTodo,
   ) async {
-    TodoModel todo = todoBox.getAt(key);
+    TodoModel todo = todoBox.get(key);
     todo.title = updatedTodo.title;
-    todo.date = updatedTodo.date;
-    todo.description = updatedTodo.description ?? todo.description;
-    todo.time = updatedTodo.time ?? todo.time;
+    todo.dueDate = updatedTodo.dueDate;
+    todo.description = updatedTodo.description;
+    todo.time = updatedTodo.time;
+    todo.isFinished = updatedTodo.isFinished;
     await todo.save();
     return todo;
   }
@@ -43,7 +45,7 @@ class HiveDataSource implements LocalDataSource {
   Future<List<TodoModel>> getAllTodos() async {
     List<TodoModel> todos = [];
     for (int key in todoBox.keys) {
-      todos.add(todoBox.getAt(key));
+      todos.add(todoBox.get(key));
     }
     return todos;
   }

@@ -18,7 +18,7 @@ void main() {
     title: "test",
     description: "test",
     time: "12:00",
-    date: DateTime(2022),
+    dueDate: DateTime(2022),
   );
 
   test(
@@ -29,7 +29,12 @@ void main() {
 
       // act
       final result = await usecase(
-        Params("test", "test", "12:00", DateTime(2022)),
+        Params(
+          title: "test",
+          description: "test",
+          time: "12:00",
+          dueDate: DateTime(2022),
+        ),
       );
 
       // assert
@@ -43,7 +48,12 @@ void main() {
     'should return correct map data',
     () async {
       // act
-      final params = Params("test", "test", "12:00", DateTime(2022));
+      final params = Params(
+        title: "test",
+        description: "test",
+        time: "12:00",
+        dueDate: DateTime(2022),
+      );
       final result = params.toTodo();
 
       // assert

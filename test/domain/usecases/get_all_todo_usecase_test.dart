@@ -21,7 +21,7 @@ void main() {
     title: "title",
     description: "description",
     time: "12:00",
-    date: DateTime.now(),
+    dueDate: DateTime.now(),
   );
   List<Todo> tTodos = [tTodo, tTodo];
 
